@@ -12,4 +12,8 @@
             <img src="{{ $path | relURL }}/{{ .Params.featured }}" alt="{{ $alt }}">
         </a>
     {{ end }}
+{{ else if isset .Params "image" }}
+    <a href="{{ .RelPermalink }}" class="image featured wp-image">
+      <img src="{{ .Params.image }}">
+    </a>
 {{ end }}

@@ -816,6 +816,16 @@
 
 			}
 
+			.image.wp-image {
+        width: auto;
+        float: left;
+        margin-right: 20px;
+      }
+
+			.image.wp-image img {
+				width: auto;
+			}
+
 		.image.main {
 			display: block;
 			margin: 0 0 3em 0;
@@ -1342,6 +1352,9 @@
 					text-transform: uppercase;
 					white-space: nowrap;
 				}
+        .post > p > a > img {
+          max-width: 100%;
+        }
 
 		#content img {
         max-width: 100%;
@@ -1389,6 +1402,7 @@
 			-webkit-align-items: center;
 			-ms-align-items: center;
 			align-items: center;
+      clear: both;
 		}
 
 			.post > footer .actions {

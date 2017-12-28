@@ -31,6 +31,15 @@
     {{ end }}
   </section>
 
+  <!-- About -->
+  {{ with .Site.Params.intro.about }}
+    <section id="mini-bio">
+      <h3>About</h1>
+      <p>{{ . | safeHTML }}</p>
+      <a href="/about/" class="button">Learn More</a>
+    </section>
+  {{ end }}
+
   <!-- Posts List -->
   <section id="recent-posts">
     <div class="mini-posts">
@@ -50,7 +59,7 @@
           <article class="mini-post">
             <header>
               <h3>
-                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                <a href="{{ .RelPermalink }}">{{ .Title | htmlUnescape }}</a>
               </h3>
               {{ $.Scratch.Set "dateType" .Date }}
               <time class="published" datetime='{{ ($.Scratch.Get "dateType").Format "2006-01-02" }}'>
@@ -105,15 +114,6 @@
           </article>
         </p>
         {{ end }}
-    </section>
-  {{ end }}
-
-  <!-- About -->
-  {{ with .Site.Params.intro.about }}
-    <section id="mini-bio">
-      <h3>About</h1>
-      <p>{{ . | safeHTML }}</p>
-      <a href="/about/" class="button">Learn More</a>
     </section>
   {{ end }}
 
