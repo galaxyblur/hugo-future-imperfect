@@ -3,10 +3,21 @@
     {{ partial "navbar" . }}
     <!-- Main -->
     <div id="main">
-        {{ range first 5 (where .Data.Pages.ByDate.Reverse "Section" "in" "post, link-post") }}
-            {{ .Render "content-list" }}
-            {{ partial "share-menu" . }}
+      {{ $paginator := .Paginate (where .Data.Pages "Type" "post") }}
+      {{ range $paginator.Pages }}
+        {{ .Render "content-list" }}
+        {{ partial "share-menu" . }}
+      {{ end }}
+
+      <!-- Pagination -->
+      <ul class="actions pagination">
+        {{ if .Paginator.HasPrev }}
+          <li><a href="{{ .Paginator.Prev.URL }}" class="button big previous">Previous Page</a></li>
         {{ end }}
+        {{ if .Paginator.HasNext }}
+          <li><a href="{{ .Paginator.Next.URL }}" class="button big next">Next Page</a></li>
+        {{ end }}
+      </ul>
     </div>
     {{ partial "sidebar" . }}
 {{ partial "footer" . }}
