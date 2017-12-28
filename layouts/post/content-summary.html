@@ -11,13 +11,7 @@
 
   {{ .Render "featured" }}
   <div id="content">
-    {{ .Content }}
-
-    {{ with .Params.link }}
-      <p>
-        <a href="{{ . }}" target="_blank">Read More <i class="fa fa-external-link"></i></a>
-      </p>
-    {{ end }}
+    <p>{{ .Summary | plainify | htmlUnescape }}</p>
   </div>
 
   <footer>
