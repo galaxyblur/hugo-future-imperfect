@@ -11,7 +11,11 @@
 
   {{ .Render "featured" }}
   <div id="content">
-    {{ .Content }}
+    {{ if .Params.link }}
+      <blockquote>{{ .Content }}</blockquote>
+    {{ else }}
+      {{ .Content }}
+    {{ end }}
 
     {{ $title := .Title }}
     {{ with .Params.link }}
