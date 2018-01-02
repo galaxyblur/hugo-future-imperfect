@@ -1,0 +1,18 @@
+<script type="text/javascript">
+  !function(name,path,ctx){
+    var latest,prev=name!=='Keen'&&window.Keen?window.Keen:false;ctx[name]=ctx[name]||{ready:function(fn){var h=document.getElementsByTagName('head')[0],s=document.createElement('script'),w=window,loaded;s.onload=s.onerror=s.onreadystatechange=function(){if((s.readyState&&!(/^c|loade/.test(s.readyState)))||loaded){return}s.onload=s.onreadystatechange=null;loaded=1;latest=w.Keen;if(prev){w.Keen=prev}else{try{delete w.Keen}catch(e){w.Keen=void 0}}ctx[name]=latest;ctx[name].ready(fn)};s.async=1;s.src=path;h.parentNode.insertBefore(s,h)}}
+  }('KeenAsync','https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.1.3.min.js',this);
+
+  KeenAsync.ready(function(){
+    // Configure a client instance
+    var client = new KeenAsync({
+      projectId: '5a4bd15bc9e77c0001bc1815',
+      writeKey: '7DE315D5292DDCF5B94FF18CA1D74CBEEE5B85F638B7E2FE8BAD610695DC81EE9B42603D4DD4291296B061490289ECC57D24DF1C32EB3004C7E121BF15A625D3834C3B914240F71FAF56B79C25738AD55B8E03D7B1F5295C70131E084A0D372C'
+    });
+
+    // Record an event
+    client.recordEvent('pageviews', {
+      title: document.title
+    });
+  });
+</script>
