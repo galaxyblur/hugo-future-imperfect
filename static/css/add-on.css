@@ -1,0 +1,8 @@
+#header .main ul li > script {
+  display: none;
+}
+
+#header #google_translate_element > div > div {
+  font-family: inherit;
+  border: 0 none;
+}
