@@ -4,5 +4,6 @@
 
 #header #google_translate_element > div > div {
   font-family: inherit;
+  background-color: transparent;
   border: 0 none;
 }
