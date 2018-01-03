@@ -1,0 +1,8 @@
+<header>
+  <div class="title">
+    <h1><a href="{{ .RelPermalink }}">{{ .Params.displayName }}</a></h1>
+    {{ with .Description }}
+      <p>{{ . }}</p>
+    {{ end }}
+  </div>
+</header>
