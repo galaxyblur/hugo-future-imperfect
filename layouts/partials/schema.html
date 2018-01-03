@@ -1,0 +1,47 @@
+{{ if eq .Type "post" }}
+  <script type='application/ld+json'>
+  {
+    "@context":"http://schema.org",
+    "@type": "NewsArticle",
+    "author": {
+      "@type": "Person",
+      "name": "{{ .Params.author }}"
+    },
+    "datePublished": "{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}",
+    "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+    "description": "{{ .Content | truncate 150 | plainify | htmlUnescape }}",
+    "headline": "{{ .Title }}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ .Site.BaseURL }}",
+    },
+    "name": "{{ .Title }}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ .Site.Title }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ .Site.Params.intro.pic.src | relURL }}",
+        "width": 72,
+        "height": 72
+      }
+    },
+    "sameAs": {{ .Site.Params.schema.sameAs | jsonify }},
+    "url": "{{ .Permalink }}",
+  }
+  </script>
+{{ else }}
+  <script type='application/ld+json'>
+  {
+    "@context":"http://schema.org",
+    "@type": "WebPage",
+    "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+    "dateModified": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+    "description": "{{ safeHTML .Site.Params.description }}",
+    "headline": "{{ .Site.Title }}",
+    "name": "{{ .Site.Title }}",
+    "sameAs": {{ .Site.Params.schema.sameAs | jsonify }},
+    "url": "{{ .Site.BaseURL }}",
+  }
+  </script>
+{{ end }}

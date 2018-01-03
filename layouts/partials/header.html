@@ -5,68 +5,71 @@
     Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-    <head>
-        {{ with $.Scratch.Get "generalTitle" }}
-            <title>{{ . }}</title>
-        {{ else }}
-            {{ with .Title }}
-                <title>{{ . }}</title>
-            {{ else }}
-                <title>{{ .Site.Title }}</title>
-            {{ end }}
-        {{ end }}
+  <head>
+    {{- if $.Scratch.Get "generalTitle" -}}
+      {{- $.Scratch.Add "pageTitle" ($.Scratch.Get "generalTitle") -}}
+    {{- else if .Title -}}
+      {{- $.Scratch.Add "pageTitle" .Title -}}
+    {{- else -}}
+      {{- $.Scratch.Add "pageTitle" .Site.Title -}}
+    {{- end -}}
+    <title>{{ $.Scratch.Get "pageTitle" }}</title>
 
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {{ .Hugo.Generator }}
-        {{ partial "favicon" . }}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {{ .Hugo.Generator -}}
+    {{ partial "favicon" . }}
+    {{ with .Params.author }}<meta name="author" content="{{ . }}">{{ end }}
 
-        {{ with .Params.author }}
-            <meta name="author" content="{{ . }}">
-        {{ end }}
-        {{ with .Description }}
-            <meta name="description" content="{{ . }}">
-        {{ else }}
-            {{ with .Site.Params.description }}
-                <meta name="description" content="{{ . }}">
-            {{ end }}
-        {{ end }}
+    {{ if .Description -}}
+      <meta name="description" content="{{ .Description }}">
+    {{ else if .Site.Params.description -}}
+      <meta name="description" content="{{ .Site.Params.description }}">
+    {{ end -}}
 
-        {{ template "_internal/twitter_cards.html" . }}
-        {{ template "_internal/opengraph.html" . }}
-        {{ template "_internal/schema.html" . }}
-        {{ template "_internal/google_news.html" . }}
+    {{ template "_internal/twitter_cards.html" . }}
+    {{ template "_internal/opengraph.html" . }}
+    {{ template "_internal/google_news.html" . }}
 
-        {{ if isset .Site.Params "customcss" }}
-            {{ $.Scratch.Set "cssFiles" .Site.Params.customCSS }}
-        {{ else }}
-            {{ $.Scratch.Set "cssFiles" false }}
-        {{ end }}
+    {{ template "_internal/schema.html" . }}
+    {{ if and (isset .Params "featured") (ne .Params.featuredpath "") -}}
+      {{- $.Scratch.Set "structType" "page" -}}
+      {{- partial "img-path" . -}}
+      <meta itemprop="image" content="{{ .Params.featuredpath | relURL }}{{ .Params.featured }}">
+    {{ else -}}
+      <meta itemprop="image" content="{{ .Site.Params.intro.pic.src | relURL }}">
+    {{- end }}
 
-        <!-- If the value "default" is passed into the param then we will first
-             load the standard css files associated with the theme -->
-        {{ if or (in ($.Scratch.Get "cssFiles") "default") (eq ($.Scratch.Get "cssFiles") false) }}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
-            <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
-            <link rel="stylesheet" href="{{ "css/add-on.css" | relURL }}">
-        {{ end }}
+    {{ partial "schema.html" . }}
 
-        {{ if ne ($.Scratch.Get "cssFiles") false }}
-            {{ range $.Scratch.Get "cssFiles" }}
-                {{ if ne . "default" }}
-                    <link rel="stylesheet" href="{{ . | relURL }}">
-                {{ end }}
-            {{ end }}
-        {{ end }}
+    {{- if isset .Site.Params "customcss" -}}
+      {{- $.Scratch.Set "cssFiles" .Site.Params.customCSS -}}
+    {{- else -}}
+      {{- $.Scratch.Set "cssFiles" false -}}
+    {{- end -}}
 
-      {{ template "_internal/google_analytics.html" . }}
-      {{ partial "keen.html" . }}
-      {{ partial "netlify-identity.html" . }}
-    </head>
-    <body>
+    <!-- If the value "default" is passed into the param then we will first
+          load the standard css files associated with the theme -->
+    {{ if or (in ($.Scratch.Get "cssFiles") "default") (eq ($.Scratch.Get "cssFiles") false) }}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+      <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+      <link rel="stylesheet" href="{{ "css/add-on.css" | relURL }}">
+    {{ end }}
 
-      <!-- Wrapper -->
-      <div id="wrapper">
+    {{ if ne ($.Scratch.Get "cssFiles") false -}}
+      {{- range $.Scratch.Get "cssFiles" -}}
+        {{- if ne . "default" -}}
+          <link rel="stylesheet" href="{{ . | relURL }}">
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{ template "_internal/google_analytics.html" . }}
+    {{ partial "keen.html" . }}
+    {{ partial "netlify-identity.html" . }}
+  </head>
+  <body>
+    <div id="wrapper">
