@@ -131,7 +131,7 @@
     {{ end }}
     <p class="copyright">
       {{ with .Site.Copyright | safeHTML }}
-        {{ . }}
+        &copy; {{ . }}
       {{ else }}
         &copy; {{ .Site.LastChange.Year }}
         {{if isset .Site.Params "author" }}
@@ -139,8 +139,7 @@
         {{ else }}
           {{ .Site.Title }}
         {{ end }}
-      {{end}}.
-      Powered by <a href="//gohugo.io" target="_blank">Hugo</a>
+      {{end}}
     </p>
   </section>
 </section>
