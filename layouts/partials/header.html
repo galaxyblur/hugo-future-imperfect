@@ -35,9 +35,9 @@
     {{ if and (isset .Params "featured") (ne .Params.featuredpath "") -}}
       {{- $.Scratch.Set "structType" "page" -}}
       {{- partial "img-path" . -}}
-      <meta itemprop="image" content="{{ .Params.featuredpath | relURL }}{{ .Params.featured }}">
+      <meta itemprop="image" content="{{ .Params.featuredpath | absURL }}/{{ .Params.featured }}">
     {{ else -}}
-      <meta itemprop="image" content="{{ .Site.Params.intro.pic.src | relURL }}">
+      <meta itemprop="image" content="{{ .Site.Params.intro.pic.src | absURL }}">
     {{- end }}
 
     {{ partial "schema.html" . }}
