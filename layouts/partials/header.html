@@ -67,9 +67,10 @@
       {{- end -}}
     {{- end -}}
 
+    {{ partial "netlify-identity.html" . }}
     {{ template "_internal/google_analytics.html" . }}
     {{ partial "keen.html" . }}
-    {{ partial "netlify-identity.html" . }}
+    {{ partial "matomo.html" . }}
   </head>
   <body>
     <div id="wrapper">
